@@ -15,8 +15,13 @@ router.post('/', async (req, res) => {
 
     while (linkExists) {
         url = nanoid(7);
-        const existingLinks = await Link.find({shortUrl: url});
-        linkExists = Boolean(existingLinks.length)
+
+        try {
+            const existingLinks = await Link.find({shortUrl: url});
+            linkExists = Boolean(existingLinks.length);
+        } catch {
+            res.status(500);
+        }
     }
 
     const linkData = {
