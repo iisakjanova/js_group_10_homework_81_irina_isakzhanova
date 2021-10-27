@@ -25,4 +25,18 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.get('/:shortUrl', async (req, res) => {
+    try {
+        const link = await Link.findOne({shortUrl: req.params.shortUrl});
+
+        if (link) {
+            res.send(link);
+        } else {
+            res.sendStatus(404).send({error: 'Link not found'});
+        }
+    } catch {
+        res.status(500);
+    }
+});
+
 module.exports = router;
