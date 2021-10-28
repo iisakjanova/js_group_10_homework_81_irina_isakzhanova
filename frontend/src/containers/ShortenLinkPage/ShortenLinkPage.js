@@ -1,5 +1,5 @@
 import React from 'react';
-import {Grid, makeStyles, Typography} from "@material-ui/core";
+import {Backdrop, CircularProgress, Grid, makeStyles, Typography} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 
 import Form from "../Form/Form";
@@ -14,6 +14,10 @@ const useStyles = makeStyles(theme => ({
     error: {
         color: "red",
     },
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+    },
 }));
 
 const ShortenLinkPage = () => {
@@ -24,6 +28,18 @@ const ShortenLinkPage = () => {
     const loading = useSelector(state => state.loading);
     const error = useSelector(state => state.error);
 
+    const showBackdrop = () => {
+        if (!loading) {
+            return null;
+        }
+
+        return (
+            <Backdrop open={loading} className={classes.backdrop}>
+                <CircularProgress color="inherit"/>
+            </Backdrop>
+        );
+    };
+
     const handleFormSubmit = (data) => {
         dispatch(addLink(data));
     };
@@ -33,20 +49,23 @@ const ShortenLinkPage = () => {
     if (error) {
         errorMessage = (
             <Typography variant="subtitle1" className={classes.error}>{error}</Typography>
-        )
+        );
     }
 
     return (
-        <Grid container direction="column" spacing={3} className={classes.root}>
-            <Grid item>
-                <Typography variant="h2">
-                    Shorten your link
-                </Typography>
+        <>
+            {showBackdrop()}
+            <Grid container direction="column" spacing={3} className={classes.root}>
+                <Grid item>
+                    <Typography variant="h2">
+                        Shorten your link
+                    </Typography>
+                </Grid>
+                <Form onSubmit={handleFormSubmit} />
+                <ShortLink url={link.shortUrl} />
+                {errorMessage}
             </Grid>
-            <Form onSubmit={handleFormSubmit} />
-            <ShortLink url={link.shortUrl} />
-            {errorMessage}
-        </Grid>
+        </>
     );
 };
 
