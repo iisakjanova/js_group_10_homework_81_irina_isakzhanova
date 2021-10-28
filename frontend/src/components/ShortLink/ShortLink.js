@@ -12,7 +12,7 @@ const ShortLink = ({url}) => {
                 </Grid>
                 <Grid item>
                     <Typography variant="h6">
-                        <Link target="_blank" href={apiURL + '/' + url}>{apiURL + '/' + url}</Link>
+                        <Link target="_blank" href={apiURL + '/links/' + url}>{apiURL + '/' + url}</Link>
                     </Typography>
                 </Grid>
             </>

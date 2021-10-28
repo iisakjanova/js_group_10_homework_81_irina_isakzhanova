@@ -44,7 +44,6 @@ router.get('/:shortUrl', async (req, res) => {
         const link = await Link.findOne({shortUrl: req.params.shortUrl});
 
         if (link) {
-            res.send({message: `Redirected to ${link.originalUrl}`});
             res.status(301).redirect(link.originalUrl);
         } else {
             res.sendStatus(404).send({error: 'Link is not found'});

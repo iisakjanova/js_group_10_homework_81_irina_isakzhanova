@@ -4,7 +4,6 @@ import {Provider} from "react-redux";
 import {applyMiddleware, compose, createStore} from "redux";
 import thunk from "redux-thunk";
 
-
 import App from './App';
 import reducer from "./store/reducers/reducer";
 
@@ -19,6 +18,5 @@ const app = (
         <App />
     </Provider>
 );
-
 
 ReactDOM.render(app, document.getElementById('root'));

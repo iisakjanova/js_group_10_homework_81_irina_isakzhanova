@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme => ({
     input: {
         width: "100%",
         marginBottom: theme.spacing(2),
-    }
+    },
 }));
 
 const Form = ({onSubmit}) => {
