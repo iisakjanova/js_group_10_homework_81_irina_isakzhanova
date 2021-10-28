@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post('/', async (req, res) => {
     if (!req.body.originalUrl) {
-        return res.status(400).send({error: 'Data not valid'});
+        return res.status(400).send({error: 'Data is not valid'});
     }
 
     let linkExists = true;
@@ -35,7 +35,7 @@ router.post('/', async (req, res) => {
         await link.save();
         res.send(link);
     } catch {
-        res.sendStatus(400).send({error: 'Data not valid'});
+        res.sendStatus(400).send({error: 'Data is not valid'});
     }
 });
 
@@ -47,7 +47,7 @@ router.get('/:shortUrl', async (req, res) => {
             res.send({message: `Redirected to ${link.originalUrl}`});
             res.status(301).redirect(link.originalUrl);
         } else {
-            res.sendStatus(404).send({error: 'Link not found'});
+            res.sendStatus(404).send({error: 'Link is not found'});
         }
     } catch {
         res.status(500);
